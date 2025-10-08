@@ -22,10 +22,11 @@ Your goal is to produce the matrix using only nested loops and conditionals — 
             skip_value_or_length = 8
         
         OUTPUT:
-            [4, 8, 12]             # numbers multiplied, skipping multiples of 8
-            ["hihi"]               # words concatenated, skipping length divisible by 8
+            [4, 12]           # numbers multiplied, skipping multiples of 8
+            ['hihi', 'hitree', 'himoon']               # words concatenated, skipping length divisible by 8
+            ['treehi']
             [12, 36]               # next number row
-            ["treetree", "treehi"] # next word row
+            ['moonhi'] # next word row
 
 '''
 
