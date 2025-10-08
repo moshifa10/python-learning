@@ -24,7 +24,7 @@
             }
 '''
 
-def smart_filter(data: list , min_length=6 ) -> dict:
+def smart_filter(data: list ) -> dict:
     filtered = {}
     numbers = []
     word = []
