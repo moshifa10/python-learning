@@ -57,7 +57,7 @@ def analyze_students(students: list, passing_score=50) -> dict:
             failed_students.append(i)
         overall += average_scores[i]
 
-    overrall = round(overall / len(average_scores), 2)
+    overall = round(overall / len(average_scores), 2)
     performance["top_student"] = name_top_student
     performance["failed_students"] = failed_students
     performance["overall_average"] = overall
@@ -77,7 +77,7 @@ students = [
     {"name": "Diana", "scores": [95, 85, 100], "age": 22},
     {"name": "Ethan", "scores": [40, 42, 38], "age": 20}
 ]
-analyze_students(students, passing_score=70)
+analyze_students(students)
 # names = [
 #     {"name": "najbu" , "age": 9},
 #     {"name": "maj" , "age": 15}
