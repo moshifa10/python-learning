@@ -32,7 +32,7 @@ import json
             Add a keyword argument passing_score=50 so the failure threshold can change dynamically:
 '''
 
-def analyze_students(students: list) -> dict:
+def analyze_students(students: list, passing_score=50) -> dict:
     performance = {}
     average_scores = {}
     # First is to loop through the list and go row by row
@@ -53,7 +53,7 @@ def analyze_students(students: list) -> dict:
         if average_scores[i] > top_student:
             top_student = average_scores[i]
             name_top_student = i
-        if average_scores[i] < 50:
+        if average_scores[i] < passing_score:
             failed_students.append(i)
         overall += average_scores[i]
 
@@ -77,7 +77,7 @@ students = [
     {"name": "Diana", "scores": [95, 85, 100], "age": 22},
     {"name": "Ethan", "scores": [40, 42, 38], "age": 20}
 ]
-analyze_students(students)
+analyze_students(students, passing_score=70)
 # names = [
 #     {"name": "najbu" , "age": 9},
 #     {"name": "maj" , "age": 15}
