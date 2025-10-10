@@ -39,6 +39,7 @@ def analyze_students(students: list, passing_score=50) -> dict:
     for each in students:
         for student in each:
             name = each["name"]
+            each["scores"]
             score = each["scores"]
             calc_score = round(sum(score) / (len(score)), 2)
             average_scores[name] = calc_score
@@ -69,7 +70,9 @@ def analyze_students(students: list, passing_score=50) -> dict:
 #     {"name": "Alice", "scores": [80, 90, 70], "age": 20},
 #     {"name": "Bob", "scores": [45, 30, 55], "age": 19},
 #     {"name": "Charlie", "scores": [60, 75, 65], "age": 21},
-# ]
+# # ]
+
+
 students = [
     {"name": "Alice", "scores": [80, 90, 70], "age": 20},
     {"name": "Bob", "scores": [45, 30, 55], "age": 19},
@@ -77,7 +80,17 @@ students = [
     {"name": "Diana", "scores": [95, 85, 100], "age": 22},
     {"name": "Ethan", "scores": [40, 42, 38], "age": 20}
 ]
-analyze_students(students)
+
+
+# messy Data
+# students = [
+#     {"name": "Alice", "scores": [80, 90, 70], "age": 20},
+#     {"name": "Bob", "scores": [], "age": 19},
+#     {"name": "Charlie", "scores": [60, "N/A", 65], "age": 21},
+#     {"name": "Diana", "age": 22},  # missing scores
+#     {"name": "Ethan", "scores": [40, 42, 38], "age": 20}
+# ]
+analyze_students(students, passing_score=90)
 # names = [
 #     {"name": "najbu" , "age": 9},
 #     {"name": "maj" , "age": 15}
