@@ -50,6 +50,7 @@ def movie_analyzer(data: list[dict]) -> dict:
     movie_ratings = {}
     average_rating = {}
     movies_names = []
+
     for i in data:
         user, movie, rating = i["user"], i["movie"], i["rating"]
         names.append(user)
@@ -80,7 +81,7 @@ def movie_analyzer(data: list[dict]) -> dict:
             count = movies_names.count(movie)
             average_rating[movie] = round((value / count), 2)
         
-    data_analyzer["avarage_ratings"] = average_rating
+    data_analyzer["average_ratings"] = average_rating
     data_analyzer["most_rated_movie"] = most_rated
     data_analyzer["top_rated_movie"] = top_rated_movie
     data_analyzer["most_active_user"] = most_active_user
