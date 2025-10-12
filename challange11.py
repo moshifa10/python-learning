@@ -23,14 +23,32 @@
 def longest_open_path(numbers: list[int]) -> tuple[int, list[int]]:
     indexes = []
     streak = 0
+    path = {}
     for i in range(len(numbers)):
-        if str(numbers[i]).startswith("-"):
+        # if str(numbers[i]).startswith("-"):
+        if numbers[i] < 0:
+            path[streak] = indexes
             indexes = []
+            streak = 0
+
         else:
-            indexes.append(numbers[i])
             streak += 1
-            if len(numbers)-i > 2
-            if str(numbers[i+1]).startswith("-") or (numbers[i+1] == len(numbers) or numbers[i+1] > len(numbers)):
-                return (streak, indexes)
+            indexes.append(numbers[i])
+
+    
+    maximum = max(path.keys())
+    return (maximum, path[maximum])
             
-print(longest_open_path([1, 2, -1, 3, 4, 5, -2, 6, 7, 8, 9, -3, 10]))
+# print(longest_open_path([1, 2, -1, 3, 4, 5, -2, 6, 7, 8, 9, -3, 10]))
+print(longest_open_path([4, -5, 7, 0, 12, -8, 3, 9, -2, 15, 6, -10, 11]))
+print(longest_open_path([1,2,3]))
+
+
+        # if str(numbers[i]).startswith("-"):
+        #     indexes = []
+        # else:
+        #     indexes.append(numbers[i])
+        #     streak += 1
+        #     if len(numbers)-i > 2:...
+        #     if str(numbers[i+1]).startswith("-") or (numbers[i+1] == len(numbers) or numbers[i+1] > len(numbers)):
+        #         return (streak, indexes)
