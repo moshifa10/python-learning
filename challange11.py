@@ -42,7 +42,7 @@ def longest_open_path(numbers: list[int]) -> tuple[int, list[int]]:
             
 # print(longest_open_path([1, 2, -1, 3, 4, 5, -2, 6, 7, 8, 9, -3, 10]))
 print(longest_open_path([4, -5, 7, 0, 12, -8, 3, 9, -2, 15, 6, -10, 11]))
-print(longest_open_path([1,2,3]))
+print(longest_open_path([-1,-2,3]))
 
 
         # if str(numbers[i]).startswith("-"):
