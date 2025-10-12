@@ -35,7 +35,8 @@ def longest_open_path(numbers: list[int]) -> tuple[int, list[int]]:
             streak += 1
             indexes.append(numbers[i])
 
-    
+    if streak > 0:
+        path[streak] = indexes
     maximum = max(path.keys())
     return (maximum, path[maximum])
             
