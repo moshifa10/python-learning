@@ -44,25 +44,80 @@ def smart_city_analyer(data: list[dict]) -> dict:
     average_traffic = [i["traffic"] for i in data]
     average_temp = [i["temperature"] for i in data]
     average = {}
+    days= {}
     # print(average_water)
 
     for i in data:
         for j in i:
+            # print(j)
+            day, energy, water, traffic, temp = i["day"], i["energy"], i["water"], i["traffic"], i["temperature"]
+            days[day]= energy+water+traffic+temp
             if j not in average.keys():
                 average[j] = i[j]
             else:
                 average[j] += i[j]
+    streak = 0
+    current = -10000
+    save_streak = 0
+    droping = 0
+    save_droping = 0
+    streak_drop = ''
+    for i in data:
+        day, energy, water, traffic, temp = i["day"], i["energy"], i["water"], i["traffic"], i["temperature"]
+        if temp > current:
+            streak += 1
+            current = temp
+        else:
+            if streak > save_streak:
+                save_streak = streak
+                streak = 0
+                current = temp
+            streak = 0
+            current = temp
+        if streak > save_streak:
+            save_streak = streak
+        if temp < current:
+            droping += 1
+            current = temp
+        else:
+            if droping > save_droping:
+                save_droping = droping
+                droping =0
+                current = temp
+            droping = 0
+            current = temp
 
-    print(average)
+    if save_streak >= 3:
+        streak_drop = "warming trend"
+    elif save_droping >= 3:
+        streak_drop = "cooling trend"
+    else:
+        streak_drop = "stable"
+    for i in average:
+        if i == "energy":
+            average[i] /= len(average_energy)
+        elif i == "water":
+            average[i] /= len(average_water)
+        elif i == "traffic":
+            average[i] /= len(average_traffic)
+        elif i == "temperature":
+            average[i] /= len(average_temp)
 
-            
+    for i in average:
+        average[i] = round(average[i],1)
+    # print(max([i["temperature"] for i in data]))
+    # city_score (avg_temp / max_temp * 20) + (efficiency * 10)  
+    efficiency = average["energy"] < max([i["temperature"] for i in data]) * 0.8
+    if efficiency:
+        efficiency = 1
+    else: efficiency = 0
     return {
-        "average": ...,
-        "highest_usage_day": ...,
-        "longest_warming_streak": ...,
-        "energy_efficient": ...,
-        "weather_pattern": ...,
-        "city_score": ...,
+        "average": average,
+        "highest_usage_day": max(days, key=days.get),
+        "longest_warming_streak": save_streak,
+        "energy_efficient": average["energy"] < max([i["temperature"] for i in data]) * 0.8,
+        "weather_pattern": streak_drop,
+        "city_score": round((average["temperature"] / max([i["temperature"] for i in data]) * 20) + (efficiency * 10),2),
     }
 
 
