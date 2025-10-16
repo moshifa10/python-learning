@@ -111,11 +111,14 @@ def smart_city_analyer(data: list[dict]) -> dict:
     if efficiency:
         efficiency = 1
     else: efficiency = 0
+    arr = [-3, 5, 16, -7, -1, -1, 644, -923, 93, -682, -923, 10, 128, 657, -88]
+    print([len([i for i in range(len(arr)) if arr[i] > 0]), sum([b for b in arr if b < 0])])
+    print(sum([i for i in arr if max(arr) != i and min(arr) != i]))
     return {
         "average": average,
         "highest_usage_day": max(days, key=days.get),
         "longest_warming_streak": save_streak,
-        "energy_efficient": average["energy"] < max([i["temperature"] for i in data]) * 0.8,
+        "energy_efficient": average["energy"] < max([i["energy"] for i in data]) * 0.8,
         "weather_pattern": streak_drop,
         "city_score": round((average["temperature"] / max([i["temperature"] for i in data]) * 20) + (efficiency * 10),2),
     }
