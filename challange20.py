@@ -46,3 +46,4 @@ def find_anagram_groups(words: list[str]) -> list[list[str]]:
 
 
 find_anagram_groups(["eat", "tea", "tan", "ate", "nat", "bat"])
+

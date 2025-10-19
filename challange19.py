@@ -83,3 +83,49 @@ students = [
 
 
 print(performance_analyzer(students))
+
+
+# Figured out another way but still same way
+
+def performance_analyzer(students :list[dict]) -> dict:
+    students_ave = {}
+    for i in students:
+        name, scores = i["name"], i["scores"]
+        students_ave[name] = sum(scores)/len(scores)
+    count_stu = 0
+    improving_students = []
+    for i in students:
+        name, scores = i["name"], i["scores"]
+        start = scores[0]
+        for count,i in enumerate(scores):
+            if count == 0:
+                continue
+            else:
+                if i > start:
+                    count_stu += 1
+                    start = i
+                else:
+                    start = i
+                    count_stu = 0
+        if count_stu >= 2:
+            improving_students.append(name)
+
+    return{
+        "top_student": ((max(students_ave, key=students_ave.get)),students_ave[max(students_ave,key=students_ave.get)]),
+        "low_student": (min(students_ave, key=students_ave.get), students_ave[min(students_ave, key=students_ave.get)]),
+        "class_average": round(sum([i for i in students_ave.values()])/ len(students_ave), 2),
+        "improving_students": improving_students,
+        "needs_attention":  [name for name, score in students_ave.items() if score < 70][0]
+
+    }
+
+
+students = [
+    {"name": "Alice", "scores": [80, 85, 88, 90]},
+    {"name": "Bob", "scores": [70, 68, 72, 75]},
+    {"name": "Charlie", "scores": [90, 95, 92, 93]},
+    {"name": "Diana", "scores": [60, 65, 62, 58]}
+]
+
+
+print(performance_analyzer(students))
