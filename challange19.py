@@ -44,11 +44,33 @@ def performance_analyzer(students :list[dict]) -> dict:
         if sum(scores) <  low:
             low = sum(scores)
             low_name = name
-    print(students_ave)
+    count_stu = 0
+    improving_students = []
+    for i in students:
+        name, scores = i["name"], i["scores"]
+        start = scores[0]
+        for count,i in enumerate(scores):
+            if count == 0:
+                continue
+            else:
+                if i > start:
+                    count_stu += 1
+                    start = i
+                else:
+                    start = i
+                    count_stu = 0
+        if count_stu >= 2:
+            improving_students.append(name)
 
+    print(students_ave)
+       
     return{
         "top_student": (name_, top/len([i["scores"] for i in students[:1]][0])),
-        "low_student": (low_name, low/len([i["scores"] for i in students[:1]][0]))
+        "low_student": (low_name, low/len([i["scores"] for i in students[:1]][0])),
+        "class_average": round(sum([i for i in students_ave.values()])/ len(students_ave), 2),
+        "improving_students": improving_students,
+        "needs_attention":  [name for name, score in students_ave.items() if score < 70][0]
+
     }
 
 
