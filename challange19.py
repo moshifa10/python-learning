@@ -32,21 +32,23 @@ def performance_analyzer(students :list[dict]) -> dict:
     # students = students[0]
     top = 0
     name_ = ''
+    low = 100000
+    low_name = ''
+    students_ave = {}
     for i in students:
         name, scores = i["name"], i["scores"]
-        if top == 0:
+        students_ave[name] = sum(scores)/len(scores)
+        if sum(scores) > top:
             top = sum(scores)
             name_ = name
-        else:
-            topping = max(sum(scores),top)
-            if topping == sum(scores):
-                top = topping
-                name_ = name
-    print((name_, top))
-
+        if sum(scores) <  low:
+            low = sum(scores)
+            low_name = name
+    print(students_ave)
 
     return{
-        "top_student": name
+        "top_student": (name_, top/len([i["scores"] for i in students[:1]][0])),
+        "low_student": (low_name, low/len([i["scores"] for i in students[:1]][0]))
     }
 
 
@@ -58,4 +60,4 @@ students = [
 ]
 
 
-performance_analyzer(students)
+print(performance_analyzer(students))
