@@ -62,19 +62,34 @@
 
 def business_performance_analyzer(business_data: list[dict]) -> dict:
     monthly_profit = {}
+    sellers = {}
+    all_sellers_sales = []
+    
+    # --- Focused on the monthly profit
     for i in business_data:
         month, sales, expenses = i['month'], i['sales'], i['expenses']
-        sales = sum([i['amount'] for i in sales])
-        monthly_profit[month] = sales- expenses
+        sales_ = sum([i['amount'] for i in sales])
+        monthly_profit[month] = sales_- expenses
+        all_sellers_sales.append(sales)
+        
 
-    
-
+        # Now the focus it's on the top seller
+        go_now = True
+        if go_now:
+            for i in sales:
+                employee, category, amount = i['employee'], i['category'], i['amount']
+                if employee not in sellers.keys():
+                    sellers[employee]  = amount
+                else:
+                    sellers[employee]  += amount
+            go_now = False
 
 
 
 
     return {
-        "monthly_profit": monthly_profit
+        "monthly_profit": monthly_profit,
+        "top_employee": max(sellers, key=sellers.get)
     }
 
 
