@@ -59,3 +59,58 @@
             "insights": ["Profits are increasing", "Employee consistency improving"]
             }
 '''
+
+def business_performance_analyzer(business_data: list[dict]) -> dict:
+    monthly_profit = {}
+    for i in business_data:
+        month, sales, expenses = i['month'], i['sales'], i['expenses']
+        sales = sum([i['amount'] for i in sales])
+        monthly_profit[month] = sales- expenses
+
+    
+
+
+
+
+
+    return {
+        "monthly_profit": monthly_profit
+    }
+
+
+
+business_data = [
+                {
+                    "month": "January",
+                    "sales": [
+                        {"employee": "Alice", "category": "Tech", "amount": 1200},
+                        {"employee": "Bob", "category": "Home", "amount": 900},
+                        {"employee": "Charlie", "category": "Tech", "amount": 1500},
+                        {"employee": "Diana", "category": "Garden", "amount": 800}
+                    ],
+                    "expenses": 1800
+                },
+                {
+                    "month": "February",
+                    "sales": [
+                        {"employee": "Alice", "category": "Tech", "amount": 1300},
+                        {"employee": "Bob", "category": "Home", "amount": 1000},
+                        {"employee": "Charlie", "category": "Tech", "amount": 1600},
+                        {"employee": "Diana", "category": "Garden", "amount": 850}
+                    ],
+                    "expenses": 2000
+                },
+                {
+                    "month": "March",
+                    "sales": [
+                        {"employee": "Alice", "category": "Tech", "amount": 1250},
+                        {"employee": "Bob", "category": "Home", "amount": 950},
+                        {"employee": "Charlie", "category": "Tech", "amount": 1550},
+                        {"employee": "Diana", "category": "Garden", "amount": 900}
+                    ],
+                    "expenses": 2100
+                }
+            ]
+
+
+print(business_performance_analyzer(business_data))
