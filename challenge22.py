@@ -190,11 +190,20 @@ def insight_engine(students: list[dict]) -> dict:
 
         if store > 1 or improve > 1:
             improving_students.append(name)
+        
+        # Here I will be calculating attendance risk
+        attendance_list = []
+        calc_risk = True if round((sum(attendance) / len(attendance)))* 100 >= 75 else False
+        if not calc_risk:
+            attendance_list.append(name)
+
     return {
         "student_averages": students_average,
         "class_average": round(sum([marks for student, marks in students_average.items()])/ len(students_average),2),
         "consistency_score": consistency,
-        "improving_students": improving_students
+        "improving_students": improving_students,
+        "attendance_risk": attendance_list,
+        "engagement_scores": ...
 
     }
 
