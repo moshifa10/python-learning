@@ -90,7 +90,7 @@ def business_performance_analyzer(business_data: list[dict]) -> dict:
                 else:
                     top_category[category] += amount
 
-
+ 
         
 
 
