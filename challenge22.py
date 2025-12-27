@@ -181,6 +181,7 @@ def insight_engine(students: list[dict]) -> dict:
     improving_students = []
     attendance_list = []
     engagement_scores = {}
+    students_at_risk = []
     for each in students:
         name, scores, attendance, participation = each['name'], each['scores'], each['attendance'], each['participation']
         average_score = sum(scores)/len(scores)
@@ -218,7 +219,6 @@ def insight_engine(students: list[dict]) -> dict:
         engagement_scores[name]= calculations_engagement    
         
         # ------------ Here I will be calculating the students at risk ------------
-        students_at_risk = []
         if attendance_percentage < 50 or average_score < 75:
             students_at_risk.append(name)
 
