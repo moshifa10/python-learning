@@ -163,13 +163,14 @@ def calculate_consistency(scores: list[int]) -> int:
             current = scores[i]
     return constant 
 
-def calculate_engagement_scores(average_score: int, attendance_percentage: int, participation_average: int) -> int:
+def calculate_engagement_scores(average_score: float, attendance_percentage: int, participation_average: float) -> int:
     '''
     In this func It will be engagement_score :
         It will take some scores from the student and combine them to make a score
         This will determine if a student was more engaged 
     '''
-    return int((((average_score/100) + (attendance_percentage/100) + ((participation_average*100)/100)/ 300))*100)
+    # return int((((average_score/100) + (attendance_percentage/100) + ((participation_average*100)/100)/ 300))*100)
+    return f"{((average_score + attendance_percentage + (participation_average * 10))/300) * 100:.2f}"
 
 
 
@@ -212,17 +213,24 @@ def insight_engine(students: list[dict]) -> dict:
 
 
         # ------------  Here I will be calculating engagement score ----------
-        participation_average = int(sum(participation)/len(participation))
+        participation_average = (sum(participation)/len(participation))
         calculations_engagement = calculate_engagement_scores(average_score, attendance_percentage, participation_average)
-        engagement_scores[name]= calculations_engagement
-    # print(en)
+        engagement_scores[name]= calculations_engagement    
+        
+        # ------------ Here I will be calculating the students at risk ------------
+        students_at_risk = []
+        if attendance_percentage < 50 or average_score < 75:
+            students_at_risk.append(name)
+
     return {
         "student_averages": students_average,
         "class_average": round(sum([marks for student, marks in students_average.items()])/ len(students_average),2),
         "consistency_score": consistency,
         "improving_students": improving_students,
         "attendance_risk": attendance_list,
-        "engagement_scores": list(engagement_scores.values())
+        "engagement_scores": list(engagement_scores.values()),
+        "top_performer": max(engagement_scores, key=engagement_scores.get),
+        "needs_attention": students_at_risk
     }
 
 
