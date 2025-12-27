@@ -262,4 +262,5 @@ students = [
         "participation": [6, 6, 5, 5]
     }
 ]
+
 print(insight_engine(students))
