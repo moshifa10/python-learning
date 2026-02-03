@@ -190,20 +190,18 @@ What to do
 
 🔁 10️⃣ Consistency vs Improvement Paradox
 
-What to do
+    What to do
 
-Identify students who are consistent but not improving.
+        Identify students who are consistent but not improving.
+            - Explain why using data-driven reasoning.
 
-Explain why using data-driven reasoning.
+    Expected Output Format
+        {
+        "Alice": "Scores stable but no upward trend",
+        "Charlie": "High consistency with minimal variation"
+        }
 
-Expected Output Format
-
-{
-  "Alice": "Scores stable but no upward trend",
-  "Charlie": "High consistency with minimal variation"
-}
-
-📦 Final Output Structure
+    📦 Final Output Structure
 
 Your function must return one dictionary:
 
