@@ -90,7 +90,6 @@ Output with Explanation
 }
 
 
-
 '''
 
 def calculate_consistency(scores: list[int]) -> int:
