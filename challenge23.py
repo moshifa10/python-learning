@@ -228,11 +228,17 @@ def measure_reliability(data: dict) -> dict:
         - Moderate
         - Unstable
     '''
+    labels = {
+        "Highly Consistent": 7,
+        "Moderate": 5,
+        "Unstable": 4,
+    }
 
+    all_scores = {}
+    students_labels = {}
     for student, score_list in data.items():
         consistency =  0
         keep = 0
-        all_scrores = {}
         for score in score_list:
             if score > consistency:
                 consistency += 1
@@ -242,10 +248,19 @@ def measure_reliability(data: dict) -> dict:
                     consistency = 0
                 else:
                     consistency= 0
-        all_scrores[student] = consistency
+        all_scores[student] = consistency
+    # Manipulate all scores
+    for student,score in all_scores.items():
+        for name, num in labels.items():
+            if score // num > 0:
+                students_labels[student] = name
+                break
+    return {
+        "scores": all_scores,
+        "labels": students_labels
+    }
 
-        
-        
+
             
 
 
@@ -256,15 +271,15 @@ def calculate_stability(data: dict) -> float:
 
 def analyse_student(data: list[dict]) -> dict: 
     avarages = {key["name"]: float(f"{sum(key["scores"])/len(key["scores"]):.2f}") for key in data}   
-    scores = {dic.get("name", []):dic.get("scores", []) for dic in data}
     stability = calculate_stability(avarages)
-
-    # print(avarages)   
+    scores = {dic.get("name", []):dic.get("scores", []) for dic in data} 
+    reliability =  measure_reliability(scores)
+    print(reliability)
 
     return{
         "normalized_averages" : avarages,
         "class_stability_index": stability,
-        "consistency": ...
+        "consistency": reliability
 
     }
 
