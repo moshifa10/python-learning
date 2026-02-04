@@ -91,6 +91,7 @@ Each student contains:
             "Charlie": "Highly Consistent",
             "Diana": "Moderate"
         }
+
     }
 
 4️⃣ Trend Classification
@@ -221,10 +222,51 @@ Your function must return one dictionary:
 }
 
 '''
+def measure_reliability(data: dict) -> dict:
+
+    '''- Highly Consistent
+        - Moderate
+        - Unstable
+    '''
+
+    for student, score_list in data.items():
+        consistency =  0
+        keep = 0
+        all_scrores = {}
+        for score in score_list:
+            if score > consistency:
+                consistency += 1
+            elif score < consistency:
+                if consistency> keep:
+                    keep = consistency
+                    consistency = 0
+                else:
+                    consistency= 0
+        all_scrores[student] = consistency
+
+        
+        
+            
+
+
+
+def calculate_stability(data: dict) -> float:
+    avarages =list(map(float, [value for key, value in data.items()]))
+    return float(f"{(sum(avarages) / len(avarages)):.2f}")
 
 def analyse_student(data: list[dict]) -> dict: 
-    pass
+    avarages = {key["name"]: float(f"{sum(key["scores"])/len(key["scores"]):.2f}") for key in data}   
+    scores = {dic.get("name", []):dic.get("scores", []) for dic in data}
+    stability = calculate_stability(avarages)
 
+    # print(avarages)   
+
+    return{
+        "normalized_averages" : avarages,
+        "class_stability_index": stability,
+        "consistency": ...
+
+    }
 
 
 students = [
@@ -269,3 +311,5 @@ students = [
         "extra_credit": [1, 2, 1]
     }
 ]
+
+print(analyse_student(students))
