@@ -221,3 +221,51 @@ Your function must return one dictionary:
 }
 
 '''
+
+def analyse_student(data: list[dict]) -> dict: 
+    pass
+
+
+
+students = [
+    {
+        "name": "Alice",
+        "scores": [72, 78, 81, 85, 88],
+        "attendance": [1, 1, 1, 0, 1],
+        "participation": [6, 7, 7, 8, 9],
+        "late_submissions": [0, 1, 0, 0, 0],
+        "extra_credit": [2, 3]
+    },
+    {
+        "name": "Bob",
+        "scores": [65, 60, 58, 62, 59],
+        "attendance": [1, 0, 1, 1, 0],
+        "participation": [5, 4, 4, 5, 4],
+        "late_submissions": [1, 1, 1, 0, 1],
+        "extra_credit": []
+    },
+    {
+        "name": "Charlie",
+        "scores": [88, 90, 92, 94, 93],
+        "attendance": [1, 1, 1, 1, 1],
+        "participation": [8, 8, 9, 9, 9],
+        "late_submissions": [0, 0, 0, 0, 0],
+        "extra_credit": [5]
+    },
+    {
+        "name": "Diana",
+        "scores": [70, 68, 65, 60],
+        "attendance": [1, 1, 0, 0],
+        "participation": [6, 6, 5, 5],
+        "late_submissions": [0, 1, 1, 1],
+        "extra_credit": []
+    },
+    {
+        "name": "Ethan",
+        "scores": [55, 60, 58],
+        "attendance": [0, 1, 1],
+        "participation": [4, 5, 5],
+        "late_submissions": [1, 0, 1],
+        "extra_credit": [1, 2, 1]
+    }
+]
