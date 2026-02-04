@@ -235,6 +235,7 @@ def measure_reliability(data: dict) -> dict:
         "Moderate": 5,
         "Unstable": 4,
     }
+    
 
     all_scores = {}
     students_labels = {}
