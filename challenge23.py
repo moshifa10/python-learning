@@ -1,3 +1,5 @@
+import pprint
+
 ''''
 
     Challange 23 
@@ -248,7 +250,7 @@ def measure_reliability(data: dict) -> dict:
                     consistency = 0
                 else:
                     consistency= 0
-        all_scores[student] = consistency
+        all_scores[student] = consistency*1.5
     # Manipulate all scores
     for student,score in all_scores.items():
         for name, num in labels.items():
@@ -260,10 +262,33 @@ def measure_reliability(data: dict) -> dict:
         "labels": students_labels
     }
 
-
+def trend(data:dict) -> dict:
+    pass
             
 
-
+def determine_engagement(data: dict) -> dict:
+    '''
+        - Positive
+        - Neutral
+        - Negative
+    '''
+    students_engagement = {}
+    for student, present in data.items():
+        days = 5
+        for available in present:
+            if available != 1:
+                days -= 1 
+        percentage = ((days*2)*10)/100*100
+        given = None
+        if percentage >= 70 :
+            given = "Positive"
+        elif percentage >= 50:
+            given = "Neutral"
+        else:
+            given = "Negative"
+        students_engagement[student]= given
+    return students_engagement
+    
 
 def calculate_stability(data: dict) -> float:
     avarages =list(map(float, [value for key, value in data.items()]))
@@ -274,13 +299,17 @@ def analyse_student(data: list[dict]) -> dict:
     stability = calculate_stability(avarages)
     scores = {dic.get("name", []):dic.get("scores", []) for dic in data} 
     reliability =  measure_reliability(scores)
-    print(reliability)
+    engagement = {dic.get("name", []):dic.get("attendance", []) for dic in data} 
+    print(engagement)
+    determine = determine_engagement(engagement)
+
+
 
     return{
         "normalized_averages" : avarages,
         "class_stability_index": stability,
-        "consistency": reliability
-
+        "consistency": reliability,
+        "engagement_momentum": determine,
     }
 
 
@@ -327,4 +356,4 @@ students = [
     }
 ]
 
-print(analyse_student(students))
+pprint.pprint(analyse_student(students))
