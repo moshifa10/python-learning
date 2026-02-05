@@ -1,3 +1,5 @@
+import pprint
+
 ''''
 
     Challange 23 
@@ -91,6 +93,7 @@ Each student contains:
             "Charlie": "Highly Consistent",
             "Diana": "Moderate"
         }
+
     }
 
 4️⃣ Trend Classification
@@ -219,3 +222,137 @@ Your function must return one dictionary:
 }
 
 '''
+def measure_reliability(data: dict) -> dict:
+
+    '''- Highly Consistent
+        - Moderate
+        - Unstable
+    '''
+    labels = {
+        "Highly Consistent": 7,
+        "Moderate": 5,
+        "Unstable": 4,
+    }
+    
+
+    all_scores = {}
+    students_labels = {}
+    for student, score_list in data.items():
+        consistency =  0
+        keep = 0
+        for score in score_list:
+            if score > consistency:
+                consistency += 1
+            elif score < consistency:
+                if consistency> keep:
+                    keep = consistency
+                    consistency = 0
+                else:
+                    consistency= 0
+        all_scores[student] = consistency*1.5
+    # Manipulate all scores
+    for student,score in all_scores.items():
+        for name, num in labels.items():
+            if score // num > 0:
+                students_labels[student] = name
+                break
+    return {
+        "scores": all_scores,
+        "labels": students_labels
+    }
+
+def trend(data:dict) -> dict:
+    pass
+            
+
+def determine_engagement(data: dict) -> dict:
+    '''
+        - Positive
+        - Neutral
+        - Negative
+    '''
+    students_engagement = {}
+    for student, present in data.items():
+        days = 5
+        for available in present:
+            if available != 1:
+                days -= 1 
+        percentage = ((days*2)*10)/100*100
+        given = None
+        if percentage >= 70 :
+            given = "Positive"
+        elif percentage >= 50:
+            given = "Neutral"
+        else:
+            given = "Negative"
+        students_engagement[student]= given
+    return students_engagement
+    
+
+def calculate_stability(data: dict) -> float:
+    avarages =list(map(float, [value for key, value in data.items()]))
+    return float(f"{(sum(avarages) / len(avarages)):.2f}")
+
+def analyse_student(data: list[dict]) -> dict: 
+    avarages = {key["name"]: float(f"{sum(key["scores"])/len(key["scores"]):.2f}") for key in data}   
+    stability = calculate_stability(avarages)
+    scores = {dic.get("name", []):dic.get("scores", []) for dic in data} 
+    reliability =  measure_reliability(scores)
+    engagement = {dic.get("name", []):dic.get("attendance", []) for dic in data} 
+    print(engagement)
+    determine = determine_engagement(engagement)
+
+
+
+    return{
+        "normalized_averages" : avarages,
+        "class_stability_index": stability,
+        "consistency": reliability,
+        "engagement_momentum": determine,
+    }
+
+
+students = [
+    {
+        "name": "Alice",
+        "scores": [72, 78, 81, 85, 88],
+        "attendance": [1, 1, 1, 0, 1],
+        "participation": [6, 7, 7, 8, 9],
+        "late_submissions": [0, 1, 0, 0, 0],
+        "extra_credit": [2, 3]
+    },
+    {
+        "name": "Bob",
+        "scores": [65, 60, 58, 62, 59],
+        "attendance": [1, 0, 1, 1, 0],
+        "participation": [5, 4, 4, 5, 4],
+        "late_submissions": [1, 1, 1, 0, 1],
+        "extra_credit": []
+    },
+    {
+        "name": "Charlie",
+        "scores": [88, 90, 92, 94, 93],
+        "attendance": [1, 1, 1, 1, 1],
+        "participation": [8, 8, 9, 9, 9],
+        "late_submissions": [0, 0, 0, 0, 0],
+        "extra_credit": [5]
+    },
+    {
+        "name": "Diana",
+        "scores": [70, 68, 65, 60],
+        "attendance": [1, 1, 0, 0],
+        "participation": [6, 6, 5, 5],
+        "late_submissions": [0, 1, 1, 1],
+        "extra_credit": []
+    },
+    {
+        "name": "Ethan",
+        "scores": [55, 60, 58],
+        "attendance": [0, 1, 1],
+        "participation": [4, 5, 5],
+        "late_submissions": [1, 0, 1],
+        "extra_credit": [1, 2, 1]
+    }
+]
+
+pprint.pprint(analyse_student(students))
