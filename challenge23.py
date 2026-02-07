@@ -1,4 +1,4 @@
-import pprint
+# import pprint
 
 ''''
 
@@ -355,4 +355,4 @@ students = [
     }
 ]
 
-pprint.pprint(analyse_student(students))
+print(analyse_student(students))
